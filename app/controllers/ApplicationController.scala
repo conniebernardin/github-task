@@ -1,0 +1,8 @@
+package controllers
+
+class ApplicationController {
+
+
+
+
+}

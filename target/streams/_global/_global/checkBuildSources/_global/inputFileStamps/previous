@@ -1,0 +1,1 @@
+["sbt.Task[scala.collection.Seq[scala.Tuple2[java.nio.file.Path, sbt.nio.FileStamp]]]",{"hashes":[["/Users/connie.bernardin/github/github-task/build.sbt","b093ea5af0bbe121afa74eb8cc6308e96808d269"],["/Users/connie.bernardin/github/github-task/project/plugins.sbt","b80f287c563e7cd99d1b2c6a59824258d0b756c3"]],"lastModifiedTimes":[]}]
