@@ -1,0 +1,16 @@
+@import models.UserModel
+@(user: UserModel)
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User</title>
+</head>
+<body>
+    <div>
+        <p> Username: @user.login </p>
+        <p> Followers: @user.followers </p>
+    </div>
+</body>
+</html>
