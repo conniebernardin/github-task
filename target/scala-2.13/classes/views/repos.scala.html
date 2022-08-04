@@ -1,0 +1,16 @@
+@import models.RepoModel
+@(repositories: Seq[RepoModel])
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Repositories</title>
+</head>
+<body>
+<div>
+    @repositories.map{ repo =>
+    <li>@repo.full_name</li>}
+</div>
+</body>
+</html>
