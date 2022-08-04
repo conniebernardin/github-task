@@ -1,6 +1,6 @@
 // @GENERATOR:play-routes-compiler
 // @SOURCE:/Users/connie.bernardin/github/github-task/conf/routes
-// @DATE:Wed Jul 27 11:45:01 BST 2022
+// @DATE:Thu Aug 04 11:01:20 BST 2022
 
 package controllers;
 

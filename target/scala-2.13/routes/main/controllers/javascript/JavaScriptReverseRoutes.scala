@@ -1,6 +1,6 @@
 // @GENERATOR:play-routes-compiler
 // @SOURCE:/Users/connie.bernardin/github/github-task/conf/routes
-// @DATE:Wed Jul 27 11:45:01 BST 2022
+// @DATE:Thu Aug 04 11:01:20 BST 2022
 
 import play.api.routing.JavaScriptReverseRoute
 
@@ -10,7 +10,7 @@ import _root_.controllers.Assets.Asset
 // @LINE:2
 package controllers.javascript {
 
-  // @LINE:9
+  // @LINE:7
   class ReverseApplicationController(_prefix: => String) {
 
     def _defaultPrefix: String = {
@@ -19,6 +19,16 @@ package controllers.javascript {
 
   
     // @LINE:9
+    def getGitHubRepos: JavaScriptReverseRoute = JavaScriptReverseRoute(
+      "controllers.ApplicationController.getGitHubRepos",
+      """
+        function(login0) {
+          return _wA({method:"GET", url:"""" + _prefix + { _defaultPrefix } + """" + "users/" + encodeURIComponent((""" + implicitly[play.api.mvc.PathBindable[String]].javascriptUnbind + """)("login", login0)) + "/repos"})
+        }
+      """
+    )
+  
+    // @LINE:7
     def getGitHubUser: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.ApplicationController.getGitHubUser",
       """

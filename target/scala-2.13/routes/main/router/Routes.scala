@@ -1,6 +1,6 @@
 // @GENERATOR:play-routes-compiler
 // @SOURCE:/Users/connie.bernardin/github/github-task/conf/routes
-// @DATE:Wed Jul 27 11:45:01 BST 2022
+// @DATE:Thu Aug 04 11:01:20 BST 2022
 
 package router
 
@@ -17,7 +17,7 @@ class Routes(
   HomeController_2: controllers.HomeController,
   // @LINE:5
   Assets_1: controllers.Assets,
-  // @LINE:9
+  // @LINE:7
   ApplicationController_0: controllers.ApplicationController,
   val prefix: String
 ) extends GeneratedRouter {
@@ -28,7 +28,7 @@ class Routes(
     HomeController_2: controllers.HomeController,
     // @LINE:5
     Assets_1: controllers.Assets,
-    // @LINE:9
+    // @LINE:7
     ApplicationController_0: controllers.ApplicationController
   ) = this(errorHandler, HomeController_2, Assets_1, ApplicationController_0, "/")
 
@@ -46,6 +46,7 @@ class Routes(
     ("""GET""", this.prefix, """controllers.HomeController.index()"""),
     ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """assets/""" + "$" + """file<.+>""", """controllers.Assets.versioned(path:String = "/public", file:Asset)"""),
     ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """library/google/""" + "$" + """login<[^/]+>""", """controllers.ApplicationController.getGitHubUser(login:String)"""),
+    ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """users/""" + "$" + """login<[^/]+>/repos""", """controllers.ApplicationController.getGitHubRepos(login:String)"""),
     Nil
   ).foldLeft(List.empty[(String,String,String)]) { (s,e) => e.asInstanceOf[Any] match {
     case r @ (_,_,_) => s :+ r.asInstanceOf[(String,String,String)]
@@ -89,7 +90,7 @@ class Routes(
     )
   )
 
-  // @LINE:9
+  // @LINE:7
   private[this] lazy val controllers_ApplicationController_getGitHubUser2_route = Route("GET",
     PathPattern(List(StaticPart(this.prefix), StaticPart(this.defaultPrefix), StaticPart("library/google/"), DynamicPart("login", """[^/]+""",true)))
   )
@@ -102,6 +103,24 @@ class Routes(
       Seq(classOf[String]),
       "GET",
       this.prefix + """library/google/""" + "$" + """login<[^/]+>""",
+      """""",
+      Seq()
+    )
+  )
+
+  // @LINE:9
+  private[this] lazy val controllers_ApplicationController_getGitHubRepos3_route = Route("GET",
+    PathPattern(List(StaticPart(this.prefix), StaticPart(this.defaultPrefix), StaticPart("users/"), DynamicPart("login", """[^/]+""",true), StaticPart("/repos")))
+  )
+  private[this] lazy val controllers_ApplicationController_getGitHubRepos3_invoker = createInvoker(
+    ApplicationController_0.getGitHubRepos(fakeValue[String]),
+    play.api.routing.HandlerDef(this.getClass.getClassLoader,
+      "router",
+      "controllers.ApplicationController",
+      "getGitHubRepos",
+      Seq(classOf[String]),
+      "GET",
+      this.prefix + """users/""" + "$" + """login<[^/]+>/repos""",
       """""",
       Seq()
     )
@@ -122,10 +141,16 @@ class Routes(
         controllers_Assets_versioned1_invoker.call(Assets_1.versioned(path, file))
       }
   
-    // @LINE:9
+    // @LINE:7
     case controllers_ApplicationController_getGitHubUser2_route(params@_) =>
       call(params.fromPath[String]("login", None)) { (login) =>
         controllers_ApplicationController_getGitHubUser2_invoker.call(ApplicationController_0.getGitHubUser(login))
+      }
+  
+    // @LINE:9
+    case controllers_ApplicationController_getGitHubRepos3_route(params@_) =>
+      call(params.fromPath[String]("login", None)) { (login) =>
+        controllers_ApplicationController_getGitHubRepos3_invoker.call(ApplicationController_0.getGitHubRepos(login))
       }
   }
 }

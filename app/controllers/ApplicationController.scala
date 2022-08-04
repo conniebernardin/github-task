@@ -1,7 +1,7 @@
 package controllers
 
 import akka.http.scaladsl.model.HttpHeader.ParsingResult.Ok
-import models.UserModel
+import models.{RepoModel, UserModel}
 import models.UserModel.formats
 import play.api.libs.json.Format.GenericFormat
 import play.api.libs.json.Json
@@ -15,17 +15,6 @@ import scala.concurrent.{ExecutionContext, Future}
 
 class ApplicationController @Inject()(val controllerComponents: ControllerComponents, val service: GitHubService, val applicationService: ApplicationService)(implicit val ec: ExecutionContext) extends BaseController {
 
-//  def index(): Action[AnyContent] = Action.async { implicit request =>
-//    val users: Future[Seq[UserModel]] = dataRepository.collection.find().toFuture()
-//    users.map(items => Json.toJson(items)).map(result => Ok(result))
-//  }
-
-//  def read(login: String): Action[AnyContent] = Action.async { implicit request =>
-//    applicationService.read(login).map{
-//      case Right (user: UserModel) => Ok(UserModel.formats.writes(user)) //wrapped in right
-//      case Left(error) => Status(error.httpResponseStatus)(Json.toJson(error.reason)) //returns 500 and reason wrapped in left
-//    }
-//  }
 
   def getGitHubUser(login: String): Action[AnyContent] = Action.async { implicit request =>
     service.getGithubUser(login).map {
@@ -33,5 +22,12 @@ class ApplicationController @Inject()(val controllerComponents: ControllerCompon
         case Left(error) => BadRequest
       }
     }
+
+def getGitHubRepos(login: String): Action[AnyContent] = Action.async{ implicit request =>
+  service.getGitHubRepos(login).map {
+    case Right(repos) => Ok(views.html.repos(repos))
+    case Left(error) => BadRequest
+  }
+}
 
 }

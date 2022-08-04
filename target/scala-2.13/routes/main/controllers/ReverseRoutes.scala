@@ -1,6 +1,6 @@
 // @GENERATOR:play-routes-compiler
 // @SOURCE:/Users/connie.bernardin/github/github-task/conf/routes
-// @DATE:Wed Jul 27 11:45:01 BST 2022
+// @DATE:Thu Aug 04 11:01:20 BST 2022
 
 import play.api.mvc.Call
 
@@ -10,7 +10,7 @@ import _root_.controllers.Assets.Asset
 // @LINE:2
 package controllers {
 
-  // @LINE:9
+  // @LINE:7
   class ReverseApplicationController(_prefix: => String) {
     def _defaultPrefix: String = {
       if (_prefix.endsWith("/")) "" else "/"
@@ -18,6 +18,12 @@ package controllers {
 
   
     // @LINE:9
+    def getGitHubRepos(login:String): Call = {
+      
+      Call("GET", _prefix + { _defaultPrefix } + "users/" + play.core.routing.dynamicString(implicitly[play.api.mvc.PathBindable[String]].unbind("login", login)) + "/repos")
+    }
+  
+    // @LINE:7
     def getGitHubUser(login:String): Call = {
       
       Call("GET", _prefix + { _defaultPrefix } + "library/google/" + play.core.routing.dynamicString(implicitly[play.api.mvc.PathBindable[String]].unbind("login", login)))
