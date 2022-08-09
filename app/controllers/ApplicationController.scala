@@ -13,7 +13,7 @@ import services.{ApplicationService, GitHubService}
 import javax.inject.Inject
 import scala.concurrent.{ExecutionContext, Future}
 
-class ApplicationController @Inject()(val controllerComponents: ControllerComponents, val service: GitHubService, val applicationService: ApplicationService)(implicit val ec: ExecutionContext) extends BaseController {
+class ApplicationController @Inject()(val controllerComponents: ControllerComponents, val service: GitHubService)(implicit val ec: ExecutionContext) extends BaseController {
 
 
   def getGitHubUser(login: String): Action[AnyContent] = Action.async { implicit request =>
