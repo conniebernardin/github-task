@@ -1,11 +1,11 @@
 package controllers
 
-import akka.http.scaladsl.model.HttpHeader.ParsingResult.Ok
-import models.{RepoModel, UserModel}
-import models.UserModel.formats
-import play.api.libs.json.Format.GenericFormat
-import play.api.libs.json.Json
-import play.api.libs.json.OFormat.oFormatFromReadsAndOWrites
+//import akka.http.scaladsl.model.HttpHeader.ParsingResult.Ok
+//import models.{RepoModel, UserModel}
+//import models.UserModel.formats
+//import play.api.libs.json.Format.GenericFormat
+//import play.api.libs.json.Json
+//import play.api.libs.json.OFormat.oFormatFromReadsAndOWrites
 import play.api.mvc.{Action, AnyContent, BaseController, ControllerComponents}
 import services.{ApplicationService, GitHubService}
 
@@ -29,5 +29,12 @@ def getGitHubRepos(login: String): Action[AnyContent] = Action.async{ implicit r
     case Left(error) => BadRequest
   }
 }
+
+  def getRepoFiles(login: String, repoName: String): Action[AnyContent] = Action.async{ implicit request =>
+    service.getRepoFiles(login, repoName).map{
+      case Right(files) => Ok(views.html.files(files))
+      case Left(error) => BadRequest
+    }
+  }
 
 }

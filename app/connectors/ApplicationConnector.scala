@@ -1,6 +1,6 @@
 package connectors
 
-import models.{APIError, RepoModel, UserModel}
+import models.{APIError, FilesModel, RepoModel, UserModel}
 import play.api.libs.ws.WSClient
 
 import javax.inject.Inject
@@ -30,4 +30,16 @@ class ApplicationConnector @Inject()(ws: WSClient){
           case JsError(error) => Left(APIError.BadAPIResponse(400, "cannot display repos"))
         }
     }
-  }}
+  }
+
+  def getRepoFiles[Response](url: String)(implicit reads: OFormat[Response], ec: ExecutionContext): Future[Either[APIError, Seq[FilesModel]]]= {
+    val request = ws.url(url)
+    request.get().map{
+      result =>
+        result.json.validate[Seq[FilesModel]] match {
+          case JsSuccess(validatedFileModel, _) => Right(validatedFileModel)
+          case JsError(errors) => Left(APIError.BadAPIResponse(400, "cannot display repo files"))
+        }
+    }
+  }
+}

@@ -7,3 +7,5 @@ GET     /assets/*file               controllers.Assets.versioned(path="/public",
 GET     /library/google/:login      controllers.ApplicationController.getGitHubUser(login: String)
 
 GET     /users/:login/repos controllers.ApplicationController.getGitHubRepos(login: String)
+
+GET /github/users/:login/repos/:repoName controllers.ApplicationController.getRepoFiles(login: String, repoName: String)

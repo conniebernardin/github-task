@@ -1,6 +1,6 @@
 // @GENERATOR:play-routes-compiler
 // @SOURCE:/Users/connie.bernardin/github/github-task/conf/routes
-// @DATE:Thu Aug 04 11:01:20 BST 2022
+// @DATE:Tue Aug 09 14:20:43 BST 2022
 
 import play.api.routing.JavaScriptReverseRoute
 
@@ -34,6 +34,16 @@ package controllers.javascript {
       """
         function(login0) {
           return _wA({method:"GET", url:"""" + _prefix + { _defaultPrefix } + """" + "library/google/" + encodeURIComponent((""" + implicitly[play.api.mvc.PathBindable[String]].javascriptUnbind + """)("login", login0))})
+        }
+      """
+    )
+  
+    // @LINE:11
+    def getRepoFiles: JavaScriptReverseRoute = JavaScriptReverseRoute(
+      "controllers.ApplicationController.getRepoFiles",
+      """
+        function(login0,repoName1) {
+          return _wA({method:"GET", url:"""" + _prefix + { _defaultPrefix } + """" + "github/users/" + encodeURIComponent((""" + implicitly[play.api.mvc.PathBindable[String]].javascriptUnbind + """)("login", login0)) + "/repos/" + encodeURIComponent((""" + implicitly[play.api.mvc.PathBindable[String]].javascriptUnbind + """)("repoName", repoName1))})
         }
       """
     )

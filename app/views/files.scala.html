@@ -1,0 +1,16 @@
+@import models.FilesModel
+@(files: Seq[FilesModel])
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Repo Files</title>
+</head>
+<body>
+<div>
+    @files.map{ file =>
+    <li>@file.name</li>}
+</div>
+</body>
+</html>

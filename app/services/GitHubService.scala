@@ -2,7 +2,7 @@ package services
 
 import cats.data.EitherT
 import connectors.ApplicationConnector
-import models.{APIError, RepoModel, UserModel}
+import models.{APIError, FilesModel, RepoModel, UserModel}
 import play.api.mvc.{Action, AnyContent}
 
 import java.awt.Desktop.Action
@@ -18,4 +18,6 @@ class GitHubService @Inject()(connector: ApplicationConnector){
 
   def getGitHubRepos(login: String)(implicit ec: ExecutionContext): Future[Either[APIError, Seq[RepoModel]]] =
     connector.getRepos[RepoModel](s"https://api.github.com/users/$login/repos")
-}
+
+  def getRepoFiles(login: String, repoName: String)(implicit ec: ExecutionContext): Future[Either[APIError, Seq[FilesModel]]] =
+    connector.getRepoFiles[FilesModel](url = s"https://api.github.com/github/users/$login/repos/$repoName/")}

@@ -1,6 +1,6 @@
 // @GENERATOR:play-routes-compiler
 // @SOURCE:/Users/connie.bernardin/github/github-task/conf/routes
-// @DATE:Thu Aug 04 11:01:20 BST 2022
+// @DATE:Tue Aug 09 14:20:43 BST 2022
 
 package router
 
@@ -47,6 +47,7 @@ class Routes(
     ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """assets/""" + "$" + """file<.+>""", """controllers.Assets.versioned(path:String = "/public", file:Asset)"""),
     ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """library/google/""" + "$" + """login<[^/]+>""", """controllers.ApplicationController.getGitHubUser(login:String)"""),
     ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """users/""" + "$" + """login<[^/]+>/repos""", """controllers.ApplicationController.getGitHubRepos(login:String)"""),
+    ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """github/users/""" + "$" + """login<[^/]+>/repos/""" + "$" + """repoName<[^/]+>""", """controllers.ApplicationController.getRepoFiles(login:String, repoName:String)"""),
     Nil
   ).foldLeft(List.empty[(String,String,String)]) { (s,e) => e.asInstanceOf[Any] match {
     case r @ (_,_,_) => s :+ r.asInstanceOf[(String,String,String)]
@@ -126,6 +127,24 @@ class Routes(
     )
   )
 
+  // @LINE:11
+  private[this] lazy val controllers_ApplicationController_getRepoFiles4_route = Route("GET",
+    PathPattern(List(StaticPart(this.prefix), StaticPart(this.defaultPrefix), StaticPart("github/users/"), DynamicPart("login", """[^/]+""",true), StaticPart("/repos/"), DynamicPart("repoName", """[^/]+""",true)))
+  )
+  private[this] lazy val controllers_ApplicationController_getRepoFiles4_invoker = createInvoker(
+    ApplicationController_0.getRepoFiles(fakeValue[String], fakeValue[String]),
+    play.api.routing.HandlerDef(this.getClass.getClassLoader,
+      "router",
+      "controllers.ApplicationController",
+      "getRepoFiles",
+      Seq(classOf[String], classOf[String]),
+      "GET",
+      this.prefix + """github/users/""" + "$" + """login<[^/]+>/repos/""" + "$" + """repoName<[^/]+>""",
+      """""",
+      Seq()
+    )
+  )
+
 
   def routes: PartialFunction[RequestHeader, Handler] = {
   
@@ -151,6 +170,12 @@ class Routes(
     case controllers_ApplicationController_getGitHubRepos3_route(params@_) =>
       call(params.fromPath[String]("login", None)) { (login) =>
         controllers_ApplicationController_getGitHubRepos3_invoker.call(ApplicationController_0.getGitHubRepos(login))
+      }
+  
+    // @LINE:11
+    case controllers_ApplicationController_getRepoFiles4_route(params@_) =>
+      call(params.fromPath[String]("login", None), params.fromPath[String]("repoName", None)) { (login, repoName) =>
+        controllers_ApplicationController_getRepoFiles4_invoker.call(ApplicationController_0.getRepoFiles(login, repoName))
       }
   }
 }
